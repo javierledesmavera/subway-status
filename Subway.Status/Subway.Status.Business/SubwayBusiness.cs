@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Subway.Status.Business.Contracts;
 using Subway.Status.Domain;
-using Subway.Status.Domain.Dtos;
 using Subway.Status.Integration.Contracts;
+using Subway.Status.Integration.Entities;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Subway.Status.Business
@@ -25,12 +27,38 @@ namespace Subway.Status.Business
             _mapper = mapper;
         }
 
-        public async Task<ServiceAlerts> GetServiceAlerts()
+        public async Task<Domain.Dtos.ServiceAlert> GetServiceAlerts()
         {
             try
             {
-                var response = await this._subwayApi.GetServiceAlerts(_clientId, _clientSecret);
-                return _mapper.Map<ServiceAlerts>(response);
+                SubwayApiResponse<ServiceAlertsHeader, Integration.Entities.ServiceAlerts> response = await this._subwayApi.GetServiceAlerts(_clientId, _clientSecret);
+                return _mapper.Map<Domain.Dtos.ServiceAlert>(response);
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<Domain.Dtos.Line>> GetSubwayLines()
+        {
+            try
+            {
+                SubwayApiResponse<ForecastGtfsHeader, Integration.Entities.ForecastGtfs> response = await this._subwayApi.GetForecastGtfs(_clientId, _clientSecret);
+                return response.Entity.Select(entity => entity.Line.RouteId).Distinct().Select(routeId => new Domain.Dtos.Line { Id = routeId });
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Domain.Dtos.ServiceAlert> GetStopsByLineId(string lineId)
+        {
+            try
+            {
+                SubwayApiResponse<ForecastGtfsHeader, Integration.Entities.ForecastGtfs> response = await this._subwayApi.GetForecastGtfs(_clientId, _clientSecret);
+                return _mapper.Map<Domain.Dtos.ServiceAlert>(response);
             }
             catch (System.Exception ex)
             {

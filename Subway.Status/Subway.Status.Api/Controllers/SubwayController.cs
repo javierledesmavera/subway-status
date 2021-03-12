@@ -24,9 +24,21 @@ namespace Subway.Status.Api.Controllers
         }
 
         [HttpGet("/serviceAlerts")]
-        public async Task<ServiceAlerts> GetServiceAlerts()
+        public async Task<ServiceAlert> GetServiceAlerts()
         {
             return await this._business.GetServiceAlerts();
+        }
+
+        [HttpGet("/lines")]
+        public async Task<IEnumerable<Domain.Dtos.Line>> GetSubwayLines()
+        {
+            return await this._business.GetSubwayLines();
+        }
+
+        [HttpGet("/stops/{lineId}")]
+        public async Task<ServiceAlert> GetStopsByLineId(string lineId)
+        {
+            return await this._business.GetStopsByLineId(lineId);
         }
     }
 }

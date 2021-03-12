@@ -2,23 +2,8 @@
 
 namespace Subway.Status.Integration.Entities
 {
-    public class ServiceAlerts
+    public class ServiceAlerts : SubwayBaseEntity
     {
-        public Header Header { get; set; }
-        public Entity[] Entity { get; set; }
-    }
-
-    public class Header
-    {
-        [JsonProperty("gtfs_realtime_version")]
-        public string GtfsRealtimeVersion { get; set; }
-        public int Incrementality { get; set; }
-        public int Timestamp { get; set; }
-    }
-
-    public class Entity
-    {
-        public string Id { get; set; }
         [JsonProperty("is_deleted")]
         public bool IsDeleted { get; set; }
         [JsonProperty("Trip_update")]
@@ -37,12 +22,12 @@ namespace Subway.Status.Integration.Entities
         public int Effect { get; set; }
         public object Url { get; set; }
         [JsonProperty("header_text")]
-        public HeaderText HeaderText { get; set; }
+        public TextInfo HeaderText { get; set; }
         [JsonProperty("description_text")]
-        public DescriptionText DescriptionText { get; set; }
+        public TextInfo DescriptionText { get; set; }
     }
 
-    public class HeaderText
+    public class TextInfo
     {
         public Translation[] Translation { get; set; }
     }
@@ -53,11 +38,6 @@ namespace Subway.Status.Integration.Entities
         public string Language { get; set; }
     }
 
-    public class DescriptionText
-    {
-        public Translation[] Translation { get; set; }
-    }
-
     public class InformedEntity
     {
         [JsonProperty("agency_id")]
@@ -66,7 +46,7 @@ namespace Subway.Status.Integration.Entities
         public string RouteId { get; set; }
         [JsonProperty("route_type")]
         public int RouteType { get; set; }
-        public object trip { get; set; }
+        public object Trip { get; set; }
         [JsonProperty("stop_id")]
         public string StopId { get; set; }
     }

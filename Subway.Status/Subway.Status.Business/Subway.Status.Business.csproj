@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Subway.Status.Domain\Subway.Status.Domain.csproj" />
     <ProjectReference Include="..\Subway.Status.Integration\Subway.Status.Integration.csproj" />
+    <ProjectReference Include="..\Subway.Status.Repository\Subway.Status.Repository.csproj" />
   </ItemGroup>
 
 </Project>

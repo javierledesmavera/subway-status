@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using Subway.Status.Api.Models.Request;
 using Subway.Status.Business.Contracts;
 using Subway.Status.Domain.Dtos;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Subway.Status.Api.Controllers
 {
@@ -14,31 +13,59 @@ namespace Subway.Status.Api.Controllers
     [ApiController]
     public class SubwayController : ControllerBase
     {
-        private readonly ILogger<SubwayController> _logger;
         private readonly ISubwayBusiness _business;
 
-        public SubwayController(ILogger<SubwayController> logger, ISubwayBusiness business)
+        public SubwayController(ISubwayBusiness business)
         {
-            _logger = logger;
             _business = business;
         }
 
         [HttpGet("/serviceAlerts")]
-        public async Task<ServiceAlert> GetServiceAlerts()
+        [Produces(typeof(ServiceAlert))]
+        public async Task<IActionResult> GetServiceAlerts()
         {
-            return await this._business.GetServiceAlerts();
+            return Ok(await _business.GetServiceAlerts());
         }
 
         [HttpGet("/lines")]
-        public async Task<IEnumerable<Domain.Dtos.Line>> GetSubwayLines()
+        [Produces(typeof(IEnumerable<Line>))]
+        public async Task<IActionResult> GetSubwayLines()
         {
-            return await this._business.GetSubwayLines();
+            return Ok(await _business.GetSubwayLines());
         }
 
         [HttpGet("/stops/{lineId}")]
-        public async Task<ServiceAlert> GetStopsByLineId(string lineId)
+        [Produces(typeof(IEnumerable<Stop>))]
+        public async Task<IActionResult> GetStopsByLineId(string lineId)
         {
-            return await this._business.GetStopsByLineId(lineId);
+            return Ok(await _business.GetStopsByLineId(lineId));
+        }
+
+
+        [HttpGet("/stops/{lineId}/headers/{stopId}")]
+        [Produces(typeof(IEnumerable<Stop>))]
+        public async Task<IActionResult> GetStopHeadersByLineIdAndStopId(string lineId, string stopId)
+        {
+            return Ok(await _business.GetStopHeadersByLineIdAndStopId(lineId, stopId));
+        }
+
+        [HttpGet("/arrivals/{lineId}/stops/{stopId}")]
+        [Produces(typeof(DateTime))]
+        public async Task<IActionResult> GetNextArrivalToStop(string lineId, string stopId, [FromQuery][Required]string destinationStopId)
+        {
+            return Ok(await _business.GetNextArrivalToStop(lineId, stopId, destinationStopId));
+        }
+
+        [HttpPost("/alerts/{lineId}")]
+        [Produces(typeof(IEnumerable<Alert>))]
+        public async Task<IActionResult> GetAlertsFiltered(string lineId, [FromBody]GetAlertsRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            return Ok(await _business.GetAlertsFiltered(lineId, request.FromDate.Value, request.ToDate.Value));
         }
     }
 }

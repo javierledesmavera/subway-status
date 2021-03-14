@@ -1,7 +1,8 @@
 ﻿namespace Subway.Status.Domain.Dtos
 {
-    public class Line : IIdentificable
+    public class Stop : IIdentificable
     {
         public string Id { get; set; }
+        public string Description { get; set; }
     }
 }

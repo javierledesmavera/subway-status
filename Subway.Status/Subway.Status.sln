@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subway.Status.Api", "Subway.Status.Api\Subway.Status.Api.csproj", "{B4210435-E8BE-43EE-AF44-C76C476FF2D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Api", "Subway.Status.Api\Subway.Status.Api.csproj", "{B4210435-E8BE-43EE-AF44-C76C476FF2D2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2B8E5259-2EEA-4C27-AFEA-4DC6776958CB}"
 EndProject
@@ -17,13 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{22F267F3-0BA7-4117-B9DE-95AE17813052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subway.Status.Repository", "Subway.Status.Repository\Subway.Status.Repository.csproj", "{47674444-EC69-48AF-93CC-5EF0C047FB4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Repository", "Subway.Status.Repository\Subway.Status.Repository.csproj", "{47674444-EC69-48AF-93CC-5EF0C047FB4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subway.Status.Business", "Subway.Status.Business\Subway.Status.Business.csproj", "{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Business", "Subway.Status.Business\Subway.Status.Business.csproj", "{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subway.Status.Domain", "Subway.Status.Domain\Subway.Status.Domain.csproj", "{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Domain", "Subway.Status.Domain\Subway.Status.Domain.csproj", "{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subway.Status.Integration", "Subway.Status.Integration\Subway.Status.Integration.csproj", "{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Integration", "Subway.Status.Integration\Subway.Status.Integration.csproj", "{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Subway.Status.Web", "Subway.Status.Web\", "{DD75EA0D-A771-4189-B812-8DF82D017AE3}"
 	ProjectSection(WebsiteProperties) = preProject

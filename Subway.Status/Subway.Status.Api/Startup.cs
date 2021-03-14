@@ -1,21 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Refit;
 using Subway.Status.Business.MappingProfiles;
 using Subway.Status.Domain;
 using Subway.Status.Integration.Contracts;
+using Subway.Status.Repository;
+using System;
 
 namespace Subway.Status.Api
 {
@@ -36,22 +31,27 @@ namespace Subway.Status.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Subway Status API", Version = "v1" });
             });
 
-            services.AddScoped<Subway.Status.Business.Contracts.ISubwayBusiness, Subway.Status.Business.SubwayBusiness>();
+            services.AddScoped<Business.Contracts.ISubwayBusiness, Business.SubwayBusiness>();
+            services.AddScoped(typeof(Repository.Contracts.IRepository<>), typeof(Repository<>));
 
             services.AddRefitClient<ISubwaysApi>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetSection(Constants.SubwayApiUrl).Value));
 
             services.AddAutoMapper(cfg => cfg.AddProfile<SubwayMappingProfile>());
 
+            services.AddDbContext<SubwayContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SubwayContext subwayContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                subwayContext.Database.Migrate();
             }
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.

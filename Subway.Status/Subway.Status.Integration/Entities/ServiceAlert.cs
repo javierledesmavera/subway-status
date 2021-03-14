@@ -2,7 +2,7 @@
 
 namespace Subway.Status.Integration.Entities
 {
-    public class ServiceAlerts : SubwayBaseEntity
+    public class ServiceAlert : SubwayBaseEntity
     {
         [JsonProperty("is_deleted")]
         public bool IsDeleted { get; set; }

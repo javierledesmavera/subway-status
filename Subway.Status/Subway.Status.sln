@@ -1,0 +1,94 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Api", "Subway.Status.Api\Subway.Status.Api.csproj", "{B4210435-E8BE-43EE-AF44-C76C476FF2D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2B8E5259-2EEA-4C27-AFEA-4DC6776958CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{5DD7F8FD-D1B3-415D-AC3E-BF83C334F567}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{9CF62EF8-43F3-4355-AD5C-AEBA530CA840}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{FE6008F3-8E79-4898-8359-AA21DCD26729}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{97E217CF-CB9D-41C6-9ABA-D2244CC4930F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{22F267F3-0BA7-4117-B9DE-95AE17813052}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Repository", "Subway.Status.Repository\Subway.Status.Repository.csproj", "{47674444-EC69-48AF-93CC-5EF0C047FB4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Business", "Subway.Status.Business\Subway.Status.Business.csproj", "{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Domain", "Subway.Status.Domain\Subway.Status.Domain.csproj", "{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subway.Status.Integration", "Subway.Status.Integration\Subway.Status.Integration.csproj", "{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Subway.Status.Web", "Subway.Status.Web\", "{DD75EA0D-A771-4189-B812-8DF82D017AE3}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_49363"
+		Debug.AspNetCompiler.PhysicalPath = "Subway.Status.Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49363\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_49363"
+		Release.AspNetCompiler.PhysicalPath = "Subway.Status.Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49363\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49363"
+		SlnRelativePath = "Subway.Status.Web\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4210435-E8BE-43EE-AF44-C76C476FF2D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4210435-E8BE-43EE-AF44-C76C476FF2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4210435-E8BE-43EE-AF44-C76C476FF2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4210435-E8BE-43EE-AF44-C76C476FF2D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47674444-EC69-48AF-93CC-5EF0C047FB4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47674444-EC69-48AF-93CC-5EF0C047FB4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47674444-EC69-48AF-93CC-5EF0C047FB4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47674444-EC69-48AF-93CC-5EF0C047FB4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD75EA0D-A771-4189-B812-8DF82D017AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD75EA0D-A771-4189-B812-8DF82D017AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD75EA0D-A771-4189-B812-8DF82D017AE3}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD75EA0D-A771-4189-B812-8DF82D017AE3}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B4210435-E8BE-43EE-AF44-C76C476FF2D2} = {2B8E5259-2EEA-4C27-AFEA-4DC6776958CB}
+		{47674444-EC69-48AF-93CC-5EF0C047FB4E} = {97E217CF-CB9D-41C6-9ABA-D2244CC4930F}
+		{3C07299A-ABB8-4C8F-98AF-C954FE68AE2D} = {FE6008F3-8E79-4898-8359-AA21DCD26729}
+		{6E59E9DE-63C9-49E0-A2A6-BEFE4F1374D4} = {22F267F3-0BA7-4117-B9DE-95AE17813052}
+		{0C4D6FFC-1425-4511-A31A-41DC97EE4E5B} = {9CF62EF8-43F3-4355-AD5C-AEBA530CA840}
+		{DD75EA0D-A771-4189-B812-8DF82D017AE3} = {5DD7F8FD-D1B3-415D-AC3E-BF83C334F567}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB3AB37C-38AA-49D3-9244-AA823075D9C2}
+	EndGlobalSection
+EndGlobal

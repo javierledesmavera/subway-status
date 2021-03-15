@@ -42,6 +42,14 @@ namespace Subway.Status.Api
             services.AddDbContext<SubwayContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddCors(opt => 
+                opt.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                }));
+
             services.AddControllers();
         }
 
@@ -67,6 +75,8 @@ namespace Subway.Status.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

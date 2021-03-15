@@ -17,6 +17,6 @@ namespace Subway.Status.Business.Contracts
 
         Task<System.DateTime> GetNextArrivalToStop(string lineId, string stopId, string destinationStopId);
 
-        Task<IEnumerable<Domain.Dtos.Alert>> GetAlertsFiltered(string lineId, DateTime fromDate, DateTime toDate);
+        IEnumerable<Domain.Dtos.Alert> GetAlertsFiltered(string lineId, DateTime fromDate, DateTime toDate);
     }
 }

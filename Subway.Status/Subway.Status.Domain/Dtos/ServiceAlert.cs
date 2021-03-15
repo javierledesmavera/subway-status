@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Subway.Status.Domain.Dtos
 {
     public class ServiceAlert
@@ -15,5 +17,6 @@ namespace Subway.Status.Domain.Dtos
         public string DescriptionText { get; set; }
         public int Cause { get; set; }
         public int Effect { get; set; }
+        public DateTime ReportedDate { get; set; }
     }
 }

@@ -20,21 +20,21 @@ namespace Subway.Status.Api.Controllers
             _business = business;
         }
 
-        [HttpGet("/serviceAlerts")]
+        [HttpGet("serviceAlerts")]
         [Produces(typeof(ServiceAlert))]
         public async Task<IActionResult> GetServiceAlerts()
         {
             return Ok(await _business.GetServiceAlerts());
         }
 
-        [HttpGet("/lines")]
+        [HttpGet("lines")]
         [Produces(typeof(IEnumerable<Line>))]
         public async Task<IActionResult> GetSubwayLines()
         {
             return Ok(await _business.GetSubwayLines());
         }
 
-        [HttpGet("/stops/{lineId}")]
+        [HttpGet("stops/{lineId}")]
         [Produces(typeof(IEnumerable<Stop>))]
         public async Task<IActionResult> GetStopsByLineId(string lineId)
         {
@@ -42,30 +42,30 @@ namespace Subway.Status.Api.Controllers
         }
 
 
-        [HttpGet("/stops/{lineId}/headers/{stopId}")]
+        [HttpGet("stops/{lineId}/headers/{stopId}")]
         [Produces(typeof(IEnumerable<Stop>))]
         public async Task<IActionResult> GetStopHeadersByLineIdAndStopId(string lineId, string stopId)
         {
             return Ok(await _business.GetStopHeadersByLineIdAndStopId(lineId, stopId));
         }
 
-        [HttpGet("/arrivals/{lineId}/stops/{stopId}")]
+        [HttpGet("arrivals/{lineId}/stops/{stopId}")]
         [Produces(typeof(DateTime))]
         public async Task<IActionResult> GetNextArrivalToStop(string lineId, string stopId, [FromQuery][Required]string destinationStopId)
         {
             return Ok(await _business.GetNextArrivalToStop(lineId, stopId, destinationStopId));
         }
 
-        [HttpPost("/alerts/{lineId}")]
+        [HttpPost("alerts/{lineId}")]
         [Produces(typeof(IEnumerable<Alert>))]
-        public async Task<IActionResult> GetAlertsFiltered(string lineId, [FromBody]GetAlertsRequest request)
+        public IActionResult GetAlertsFiltered(string lineId, [FromBody]GetAlertsRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
             }
 
-            return Ok(await _business.GetAlertsFiltered(lineId, request.FromDate.Value, request.ToDate.Value));
+            return Ok(_business.GetAlertsFiltered(lineId, request.FromDate.Value, request.ToDate.Value));
         }
     }
 }

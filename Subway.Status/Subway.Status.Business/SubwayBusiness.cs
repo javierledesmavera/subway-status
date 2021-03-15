@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Subway.Status.Business.Contracts;
 using Subway.Status.Domain;
@@ -138,7 +139,7 @@ namespace Subway.Status.Business
             }
         }
 
-        public async Task<IEnumerable<Domain.Dtos.Alert>> GetAlertsFiltered(string lineId, DateTime fromDate, DateTime toDate)
+        public IEnumerable<Domain.Dtos.Alert> GetAlertsFiltered(string lineId, DateTime fromDate, DateTime toDate)
         {
             try
             {
@@ -157,9 +158,11 @@ namespace Subway.Status.Business
             {
                 foreach (var serviceAlert in serviceAlertResponse.Alerts)
                 {
-                    if (!this._alertRepository.GetFiltered(alert => alert.RouteId == serviceAlert.RouteId &&
+                    var filteredAlerts = this._alertRepository.GetFiltered(alert => alert.RouteId == serviceAlert.RouteId &&
                         alert.DescriptionText == serviceAlert.DescriptionText &&
-                        alert.AlertDate == DateTime.Now.Date).Any())
+                        alert.AlertDate.Date == DateTime.Now.Date);
+
+                    if (!filteredAlerts.Any())
                     {
                         Repository.Entities.Alert entity = _mapper.Map<Repository.Entities.Alert>(serviceAlert);
                         entity.AlertDate = DateTime.Now;

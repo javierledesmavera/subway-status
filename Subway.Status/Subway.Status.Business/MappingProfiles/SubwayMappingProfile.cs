@@ -19,12 +19,14 @@ namespace Subway.Status.Business.MappingProfiles
                 .ForMember(dto => dto.HeaderText, cfg => cfg.MapFrom(entity => entity.Alert.HeaderText.Translation.FirstOrDefault(t => t.Language == "es").Text))
                 .ForMember(dto => dto.DescriptionText, cfg => cfg.MapFrom(entity => entity.Alert.DescriptionText.Translation.FirstOrDefault(t => t.Language == "es").Text))
                 .ForMember(dto => dto.Cause, cfg => cfg.MapFrom(entity => entity.Alert.Cause))
-                .ForMember(dto => dto.Effect, cfg => cfg.MapFrom(entity => entity.Alert.Effect));
+                .ForMember(dto => dto.Effect, cfg => cfg.MapFrom(entity => entity.Alert.Effect))
+                .ForMember(dto => dto.ReportedDate, cfg => cfg.Ignore());
 
             CreateMap<Domain.Dtos.Alert, Repository.Entities.Alert>()
                 .ForMember(entity => entity.Id, cfg => cfg.Ignore())
                 .ForMember(entity => entity.AlertDate, cfg => cfg.Ignore())
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(dto => dto.ReportedDate, cfg => cfg.MapFrom(entity => entity.AlertDate));
         }
     }
 }

@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Arribos</h2>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="lines">Lineas de subte</label>
+            <select class="form-control" id="lines" (change)="onLinesChange($event.target.value)">
+                <option [value]="">Seleccione una opción...</option>
+                <option *ngFor="let line of lines$ | async">{{line.id}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col">
+            <label for="stops">Estaciones</label>
+            <select class="form-control" id="stops" (change)="onStopChange($event.target.value)">
+                <option [value]="">Seleccione una opción...</option>
+                <option *ngFor="let stop of stops$ | async" [value]="stop.id">{{stop.description}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col">
+            <label for="stopHeads">Cabeceras</label>
+            <select class="form-control" id="stopHeads" (change)="onStopHeaderChange($event.target.value)">
+                <option [value]="">Seleccione una opción...</option>
+                <option *ngFor="let stopHead of stopHeaders$ | async" [value]="stopHead.id">{{stopHead.description}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="form-group col-3">
+            <button class="form-control btn-primary" (click)="getNextArrival()" id="btn">
+                Buscar
+            </button>
+        </div>
+    </div>
+
+    <p *ngIf="arrivalTime">El próximo subte llegará a la estación a las {{arrivalTime | date: 'HH:mm:ss'}}</p>
+</div>

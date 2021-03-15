@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Incidentes históricos</h3>
+        </div>
+    </div>
+
+    <form [formGroup]="searchForm">
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="lines">Lineas de subte</label>
+                <select class="form-control" id="lines" formControlName="lineId" required>
+                    <option [value]="">Seleccione una opción...</option>
+                    <option *ngFor="let line of lines$ | async">{{line.id}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col">
+                <label for="lines">Fecha desde</label>
+                <input class="form-control" placeholder="dd/mm/yyyy" formControlName="fromDate" name="fromDate" ngbDatepicker
+                    #fromDate="ngbDatepicker" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="fromDate.toggle()" type="button"></button>
+                </div>
+            </div>
+
+            <div class="form-group col">
+                <label for="lines">Fecha Hasta</label>
+                <input class="form-control" placeholder="dd/mm/yyyy" formControlName="toDate" name="toDate" ngbDatepicker
+                    #toDate="ngbDatepicker" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="toDate.toggle()" type="button"></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-row justify-content-end">
+            <div class="form-group col-2">
+                <button class="form-control btn-primary" (click)="cleanFilters()">
+                    Limpiar Filtros
+                </button>
+            </div>
+            <div class="form-group col-2">
+                <button class="form-control btn-primary" (click)="getAlertsFiltered()">
+                    Buscar
+                </button>
+            </div>
+        </div>
+        <div class="form-row justify-content-end">
+            <p class="text-danger" *ngIf="submitted && searchForm.invalid">Por favor complete todos los campos del formulario.</p>
+        </div>
+    </form>
+
+    <div class="row" *ngIf="alerts">
+        <div class="col">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">Linea</th>
+                        <th scope="col">Fecha Incidente</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Detalle</th>
+                        <th scope="col">Estación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let alert of alerts">
+                        <th scope="row">{{ alert.routeId }}</th>
+                        <td>{{ alert.reportedDate | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ alert.headerText }}</td>
+                        <td>{{ alert.descriptionText }}</td>
+                        <td>{{ alert.stopId }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCountries()">
+    </ngb-pagination>
+  
+    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div> -->

@@ -35,6 +35,10 @@ namespace Subway.Status.Business
             _alertRepository = alertRepository;
         }
 
+        /// <summary>
+        /// Obtiene las alertas actuales del servicio y persiste en BD las que no existan para el día de hoy
+        /// </summary>
+        /// <returns></returns>
         public async Task<Domain.Dtos.ServiceAlert> GetServiceAlerts()
         {
             try
@@ -50,6 +54,10 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// Obtiene todas las lineas de subte
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Domain.Dtos.Line>> GetSubwayLines()
         {
             try
@@ -63,6 +71,11 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// Obtiene las estaciones para una linea de subte
+        /// </summary>
+        /// <param name="lineId"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Domain.Dtos.Stop>> GetStopsByLineId(string lineId)
         {
             try
@@ -84,6 +97,12 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// Obtiene las estaciones cabeceras para una linea de subte y excluye la estacion de origen para que no se pueda seleccionar a si misma como destino
+        /// </summary>
+        /// <param name="lineId"></param>
+        /// <param name="stopId"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Domain.Dtos.Stop>> GetStopHeadersByLineIdAndStopId(string lineId, string stopId)
         {
             try
@@ -98,6 +117,13 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lineId"></param>
+        /// <param name="stopId"></param>
+        /// <param name="destinationStopId"></param>
+        /// <returns></returns>
         public async Task<System.DateTime> GetNextArrivalToStop(string lineId, string stopId, string destinationStopId)
         {
             try
@@ -139,6 +165,13 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// Obtiene las alertas filtrando por linea de subte y un rango de fechas
+        /// </summary>
+        /// <param name="lineId"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <returns></returns>
         public IEnumerable<Domain.Dtos.Alert> GetAlertsFiltered(string lineId, DateTime fromDate, DateTime toDate)
         {
             try
@@ -152,16 +185,23 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// Guarda las alertas en la base de datos
+        /// </summary>
+        /// <param name="serviceAlertResponse"></param>
+        /// <returns></returns>
         private async Task PersistServiceAlerts(Domain.Dtos.ServiceAlert serviceAlertResponse)
         {
             if (serviceAlertResponse != null && serviceAlertResponse.Alerts != null && serviceAlertResponse.Alerts.Any())
             {
                 foreach (var serviceAlert in serviceAlertResponse.Alerts)
                 {
+                    // Se trae las alertas para la linea que se esta iterando, con el mismo texto en el día de hoy
                     var filteredAlerts = this._alertRepository.GetFiltered(alert => alert.RouteId == serviceAlert.RouteId &&
                         alert.DescriptionText == serviceAlert.DescriptionText &&
                         alert.AlertDate.Date == DateTime.Now.Date);
 
+                    // Si no hay alertas que cumplan esas condiciones, la misma es una nueva alerta y se inserta
                     if (!filteredAlerts.Any())
                     {
                         Repository.Entities.Alert entity = _mapper.Map<Repository.Entities.Alert>(serviceAlert);
@@ -172,6 +212,12 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// Devuelve el id de direccion usado en la API según si la estacion de origen es una estacion anterior a la de destino
+        /// </summary>
+        /// <param name="stopId"></param>
+        /// <param name="destinationStopId"></param>
+        /// <returns></returns>
         private int GetDirectionByStops(string stopId, string destinationStopId)
         {
             if (Convert.ToInt32(GetStopIdWithoutDirection(stopId)) < Convert.ToInt32(GetStopIdWithoutDirection(destinationStopId)))
@@ -184,6 +230,11 @@ namespace Subway.Status.Business
             }
         }
 
+        /// <summary>
+        /// Obtiene el id de la estacion sin las letas N o S para que sólo sea el id numérico
+        /// </summary>
+        /// <param name="stopId"></param>
+        /// <returns></returns>
         private string GetStopIdWithoutDirection(string stopId)
         {
             string normalizedStopId = stopId.Replace("N", string.Empty);
@@ -191,6 +242,11 @@ namespace Subway.Status.Business
             return normalizedStopId;
         }
 
+        /// <summary>
+        /// Convierte la unidad de tiempo devuelta por la api a DateTime
+        /// </summary>
+        /// <param name="unixTime"></param>
+        /// <returns></returns>
         private DateTime GetDateTimeFromUnixTime(int unixTime)
         {
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);

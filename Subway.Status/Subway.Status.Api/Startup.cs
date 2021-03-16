@@ -31,17 +31,22 @@ namespace Subway.Status.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Subway Status API", Version = "v1" });
             });
 
+            // Inyección de dependencias
             services.AddScoped<Business.Contracts.ISubwayBusiness, Business.SubwayBusiness>();
             services.AddScoped(typeof(Repository.Contracts.IRepository<>), typeof(Repository<>));
 
+            // Se declara el cliente de Refit
             services.AddRefitClient<ISubwaysApi>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetSection(Constants.SubwayApiUrl).Value));
 
+            // Se agrega la configuracion de AutoMapper
             services.AddAutoMapper(cfg => cfg.AddProfile<SubwayMappingProfile>());
 
+            // Se indica el contexto de DB y su connectionString
             services.AddDbContext<SubwayContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            // Habilitamos el Cors para que no tenga restricciones
             services.AddCors(opt => 
                 opt.AddDefaultPolicy(builder =>
                 {
@@ -59,14 +64,13 @@ namespace Subway.Status.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Aplica las migrations pendientes y crea la base en caso que no exista
                 subwayContext.Database.Migrate();
             }
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("v1/swagger.json", "Subway Status API");
